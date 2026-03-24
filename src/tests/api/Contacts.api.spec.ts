@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { ContactClient } from '../../clients/ContactClient';
-import contactData from '../../testData/api/contacts.api.testdata.json';
+import contactData from '../../testdata/api/contacts.api.testdata.json';
 import Ajv from 'ajv';
 
 let apiContext: any;
