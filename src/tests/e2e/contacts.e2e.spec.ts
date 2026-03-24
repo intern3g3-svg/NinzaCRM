@@ -35,6 +35,6 @@ console.log('Created Contact ID:', contactId);
    await cp.enterContactID(contactId);
   
   // Step 5: Validate contact is visible
-  //await page.reload({ waitUntil: 'networkidle' });
+ 
 await expect(await cp.contactRow(contactId)).toBeVisible({ timeout: 30000 });
 });
