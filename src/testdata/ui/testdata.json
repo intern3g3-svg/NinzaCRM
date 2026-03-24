@@ -10,6 +10,19 @@
     "mobile":"9876540321",
     "title":"Mr"
   
+  },
+   "contactspageTitleValidation":{
+    "contactName" : "abc",
+    "orgName":"bca321",
+    "mobile":"9876540321",
+    "title":"M"
+  
+  },
+    "toastMessageValidation":{
+    "contactName" : "abc123",
+    "orgName":"bca321",
+    "mobile":"9876540321",
+    "title":"Mr"
   
   }
 }

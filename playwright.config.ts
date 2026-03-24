@@ -49,6 +49,10 @@ export default defineConfig({
     name: 'setup',
     testMatch: /auth\.setup\.ts/,
   },
+  {
+    name: 'api-setup',
+    testMatch: /auth\.api\.setup\.ts/,
+  },
 
     {
       name: 'chromium',
@@ -57,12 +61,35 @@ export default defineConfig({
            },
       dependencies: ['setup'],
     },
-    {
-      name: 'api',
-      testMatch: 'api/**/*.spec.ts',
+   // {
+     // name: 'api',
+     // testMatch: 'api/**/*.spec.ts',
      // testMatch: /.*\.api\.ts$/,
-      use: {}   // no browser
-    },
+     // use: {}   // no browser
+  //  },
+     {
+    name: 'api',
+    testMatch: 'api/**/*.api.spec.ts',
+    dependencies: ['api-setup'],
+    use: {
+      baseURL: 'http://49.249.28.218:8098',
+      storageState: 'playwright/.auth/apiAuth.json',
+     /* httpCredentials: {
+      username: 'rmgyantra',
+      password: 'rmgy@9999'
+    }*/
+    }
+  },
+  {
+  name: 'e2e',
+  testMatch: 'e2e/**/*.e2e.spec.ts',
+  dependencies: ['setup', 'api-setup'], // both UI & API setups
+  use: {
+    baseURL: 'http://49.249.28.218:8098',
+    ...devices['Desktop Chrome'],
+    storageState: 'playwright/.auth/user.json', // for UI
+  }
+}
 
    /* {
       name: 'firefox',
@@ -94,7 +121,7 @@ export default defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
-
+ 
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',

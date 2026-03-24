@@ -13,6 +13,8 @@ export class ContactsPage extends BasePage {
  createContact:Locator;
  //firstSelectButton:Locator;
  dropdown:Locator;
+ alertMessage:Locator;
+ searchInput:Locator;
   
     constructor(page :Page) {
         super(page);
@@ -30,6 +32,9 @@ export class ContactsPage extends BasePage {
         this.createContact  =  page.getByRole('button', {name:'Create Contact'});
 
         this.dropdown = page.locator('select.form-control');
+        this.alertMessage = page.getByRole('alert');
+        this.searchInput = page.locator('input[placeholder="Search by Contact Id"]');
+
     }
 
     
@@ -69,7 +74,25 @@ export class ContactsPage extends BasePage {
   }
 
   async getDropdown(){
-    return this.dropdown;
+   
+    this.dropdown.selectOption('contactId');
+     return this.dropdown;
   }
+
+  async getTitleValidationMsg(){
+    return await this.getValidationMessage(this.title);
+  }
+  async getToastAlertMessage(){
+    return  await this.alertMessage;
+  }
+  
+  async enterContactID(contactId: string){
+    return await this.searchInput.fill(contactId);
+    //await this.searchInput.press('Enter');
+  }
+
+  async contactRow(contactId: string) {
+       return this.page.locator(`table tr.tr >> td:first-child:text-is("${contactId}")`).first();
+}
 }
    

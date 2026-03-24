@@ -40,4 +40,11 @@ export class BasePage {
   await newPage.waitForLoadState();
   return newPage;
 }
+
+
+async getValidationMessage(locator: Locator): Promise<string> {
+    return await locator.evaluate(
+      el => (el as HTMLInputElement).validationMessage
+    );
+  }
 }

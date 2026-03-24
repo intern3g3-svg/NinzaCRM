@@ -1,6 +1,6 @@
-import { test, expect, request } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { ContactClient } from '../../clients/ContactClient';
-import contactData from '../../testData/contactsAPIdata.json';
+import contactData from '../../testData/api/contacts.api.testdata.json';
 import Ajv from 'ajv';
 
 let apiContext: any;
@@ -9,26 +9,26 @@ let createdContactId: string;
 let email: string;
 let mobile: string;
 
-test.beforeAll(async () => {
-  apiContext = await request.newContext({
+test.beforeEach(async ({request}) => {
+  /*apiContext = await request.newContext({
     baseURL: 'http://49.249.28.218:8098',
     httpCredentials: {
       username: 'rmgyantra',
       password: 'rmgy@9999'
     }
-  });
+  });*/
 
-  contactClient = new ContactClient(apiContext);
+  contactClient = new ContactClient(request);
 });
 
 
-test('get login', async () => {
+/*test('get login', async () => {
   const response = await contactClient.getLogin();
      console.log('login Status:', response.status());
     // console.log('Body:', await response.text());
   expect(response.status()).toBe(202);
 
-});
+});*/
 
 
 
