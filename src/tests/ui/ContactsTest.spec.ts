@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import testdata from '../../testdata/ui/testdata.json';
+import testdata from '../../testdata/ui/contactstestdata.json';
 import { LoginPage } from '../../pages/LoginPage';
 import { ContactsPage } from '../../pages/ContactsPage';
 import { SelectCampaignPage } from '../../pages/SelectCampaignPage';
