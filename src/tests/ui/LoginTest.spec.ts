@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 import {test,expect} from '@playwright/test';
-import testdata from '../../testdata/testdata.json';
+//import testdata from '../../testdata/testdata.json';
 import { LoginPage } from '../../pages/LoginPage';
 //import { ENV } from '../env';
 
