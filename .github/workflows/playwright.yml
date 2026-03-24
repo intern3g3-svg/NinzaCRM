@@ -5,6 +5,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  workflow_dispatch:  #  manual execution
 
 jobs:
   test:
@@ -28,6 +29,9 @@ jobs:
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
+      - name: Debug URL access
+        run: curl -I $BASE_URL
 
       - name: Run Playwright tests
         run: npx playwright test
