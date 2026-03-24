@@ -27,7 +27,7 @@ export default defineConfig({
   reporter: [
     ['list'],
     ['html'],['github'],
-    ['junit', { outputFile: 'results.xml' }],
+   //['junit', { outputFile: 'results.xml' }],
     ['allure-playwright'],
     
   ],
@@ -48,14 +48,17 @@ export default defineConfig({
      {
     name: 'setup',
     testMatch: /auth\.setup\.ts/,
+      use: { browserName: 'chromium' },
   },
   {
     name: 'api-setup',
     testMatch: /auth\.api\.setup\.ts/,
+  
   },
 
     {
       name: 'chromium',
+      testDir: './src/tests/ui',  
       use: { ...devices['Desktop Chrome'],
              storageState: 'playwright/.auth/user.json',
            },
