@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { ContactClient } from '../../clients/ContactClient';
 import { ContactsPage } from '../../pages/ContactsPage';
-import contactData from '../../testData/api/contacts.api.testdata.json';
+import contactData from '../../testdata/api/contacts.api.testdata.json';
 let email: string;
 let mobile: string;
 test('Create contact via API and verify in UI', async ({ page, request }) => {
