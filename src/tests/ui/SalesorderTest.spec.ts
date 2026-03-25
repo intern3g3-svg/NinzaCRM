@@ -16,5 +16,5 @@ test('search sales order', async ({page}) =>{
     await sp.fillSearchByOrderId(testdata.SalesOrderSearch.searchById);
     await sp.validationSearchResult(sp.searchByOrderResult,testdata.SalesOrderSearch.searchById);
   //  await sp.validationSearchResult(sp.searchBySubjectResult,testdata.SalesOrderSearch.searchById);
-    page.pause();
+    console.log("UI- SalesOrderTest passed");
 })
