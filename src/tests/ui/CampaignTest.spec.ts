@@ -1,6 +1,6 @@
 import { test, APIRequestContext } from '@playwright/test';
 import testdata from '../../testdata/ui/campaign-testdata.json';
-import { CampaignPage } from '../../pages/campaignPage';
+import { CampaignPage } from '../../pages/CampaignPage';
 
 let cp: CampaignPage;
 
