@@ -24,7 +24,7 @@ test.describe('Campaign Page', () => {
   });
 
   test('Create Campaigns', async ({ page }) => {
-    await page.goto(`${process.env.BASE_URL}/campaigns`);
+    await page.goto(`${process.env.BASE_URL}/campaigns`, { waitUntil: 'networkidle' });
     await cp.waitForCampaignsPage();
     await cp.clickCreateCampaigns();
     await cp.enterCampaignName(testdata.campaignpage.campaignName);
@@ -39,7 +39,7 @@ test.describe('Campaign Page', () => {
   });
 
   test('validate campaign status dropdown options', async () => {
-    await cp.page.goto(`${process.env.BASE_URL}/campaigns`);
+    await cp.page.goto(`${process.env.BASE_URL}/campaigns`, { waitUntil: 'networkidle' });
     await cp.waitForCampaignsPage();
     await cp.getDropdown();
   });

@@ -3,6 +3,7 @@ import { Page, Locator } from '@playwright/test';
 
 export class CampaignPage extends BasePage {
   campaignsTab: Locator;
+  campaignsHeader: Locator;
   createCampaignButton: Locator;
   campaignName: Locator;
   campaignStatus: Locator;
@@ -18,7 +19,8 @@ export class CampaignPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.campaignsTab = page.getByRole('link', { name: 'Campaigns' });
-    this.createCampaignButton = page.getByRole('button', { name: 'Create Campaign' }).first();
+    this.campaignsHeader = page.locator('.table-title h2, h2').filter({ hasText: 'Campaigns' }).first();
+    this.createCampaignButton = page.locator('button').filter({ hasText: 'Create Campaign' }).first();
     this.campaignName = page.locator('input[name="campaignName"]');
     this.campaignStatus = page.locator('input[name="campaignStatus"], select[name="campaignStatus"]');
     this.targetSize = page.locator('input[name="targetSize"]');
@@ -32,7 +34,9 @@ export class CampaignPage extends BasePage {
   }
 
   async waitForCampaignsPage() {
-    await this.createCampaignButton.waitFor({ state: 'visible' });
+    await this.page.waitForLoadState('domcontentloaded');
+    await this.campaignsHeader.waitFor({ state: 'visible' });
+    await this.searchDropdown.waitFor({ state: 'visible' });
   }
 
   async clickCampaigns() {
@@ -46,6 +50,7 @@ export class CampaignPage extends BasePage {
   }
 
   async clickCreateCampaigns() {
+    await this.createCampaignButton.waitFor({ state: 'visible' });
     await this.createCampaignButton.click();
     console.log('clicked');
   }
