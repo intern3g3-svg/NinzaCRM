@@ -31,8 +31,18 @@ export class CampaignPage extends BasePage {
     this.searchInput = page.locator('.table-title input.form-control, .table-title input[type="text"]').first();
   }
 
+  async waitForCampaignsPage() {
+    await this.createCampaignButton.waitFor({ state: 'visible' });
+  }
+
   async clickCampaigns() {
+    if (this.page.url().includes('/campaigns')) {
+      await this.waitForCampaignsPage();
+      return;
+    }
+
     await this.campaignsTab.click();
+    await this.waitForCampaignsPage();
   }
 
   async clickCreateCampaigns() {

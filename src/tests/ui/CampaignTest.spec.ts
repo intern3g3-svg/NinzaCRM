@@ -25,7 +25,7 @@ test.describe('Campaign Page', () => {
 
   test('Create Campaigns', async ({ page }) => {
     await page.goto(`${process.env.BASE_URL}/campaigns`);
-    await cp.clickCampaigns();
+    await cp.waitForCampaignsPage();
     await cp.clickCreateCampaigns();
     await cp.enterCampaignName(testdata.campaignpage.campaignName);
     await cp.enterCampaignStatus(testdata.campaignpage.campaignStatus);
@@ -39,6 +39,8 @@ test.describe('Campaign Page', () => {
   });
 
   test('validate campaign status dropdown options', async () => {
+    await cp.page.goto(`${process.env.BASE_URL}/campaigns`);
+    await cp.waitForCampaignsPage();
     await cp.getDropdown();
   });
 });
