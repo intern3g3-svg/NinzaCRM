@@ -10,9 +10,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-        BASE_URL: ${{ secrets.BASE_URL }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PASSWORD: ${{ secrets.PASSWORD }}
+      BASE_URL: ${{ secrets.BASE_URL }}
+      NINZA_USERNAME: ${{ secrets.NINZA_USERNAME }}
+      NINZA_PASSWORD: ${{ secrets.NINZA_PASSWORD }}
 
     steps:
       - name: Checkout code
