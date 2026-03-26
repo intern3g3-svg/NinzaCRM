@@ -40,6 +40,6 @@ test('Create campaign via API and verify in UI', async ({ page }) => {
   
   // Step 5: Validate contact is visible
  
-await expect(await cp.campaignRow(createdCampaignId)).toBeVisible({ timeout: 30000 });
+  await expect(await cp.campaignRow(createdCampaignId)).toBeVisible({ timeout: 30000 });
 
 });
