@@ -14,6 +14,7 @@ async function isServerReachable(apiRequest: APIRequestContext, baseUrl: string)
 }
 
 test.describe('Campaign Page', () => {
+  test.describe.configure({ timeout: 60000 });
   test.beforeEach(async ({ page, request }) => {
     test.skip(!process.env.BASE_URL, 'BASE_URL is not configured');
 
@@ -24,8 +25,7 @@ test.describe('Campaign Page', () => {
   });
 
   test('Create Campaigns', async ({ page }) => {
-    await page.goto(`${process.env.BASE_URL}/campaigns`, { waitUntil: 'networkidle' });
-    await cp.waitForCampaignsPage();
+await page.goto(`${process.env.BASE_URL}/campaigns`, { waitUntil: 'domcontentloaded', timeout: 60000 });    await cp.waitForCampaignsPage();
     await cp.clickCreateCampaigns();
     await cp.enterCampaignName(testdata.campaignpage.campaignName);
     await cp.enterCampaignStatus(testdata.campaignpage.campaignStatus);

@@ -94,7 +94,7 @@ export class CampaignPage extends BasePage {
     return this.dropdown;
   }
 
-  async selectSearchByCampaignName() {
+    async selectSearchByCampaignName() {
     await this.searchDropdown.selectOption('campaignName');
   }
 
@@ -102,14 +102,29 @@ export class CampaignPage extends BasePage {
     await this.searchInput.fill(text);
   }
 
-  async searchCampaignByName(name: string) {
+    async selectSearchByCampaignId() {
+    await this.searchDropdown.selectOption('campaignId');
+  }
+  async searchCampaignById(id: string) {
+    await this.selectSearchByCampaignId();
+    await this.searchInput.click();
+    await this.searchInput.fill(id);
+    await this.searchInput.press('Enter');
+  }
+
+
+    async searchCampaignByName(name: string) {
     await this.selectSearchByCampaignName();
     await this.searchInput.click();
     await this.searchInput.fill(name);
     await this.searchInput.press('Enter');
   }
 
-  campaignRow(name: string) {
-    return this.page.locator('table.table-striped tr').filter({ hasText: name });
-  }
+    async enterCampaignId(campaignId: string){
+    return await this.searchInput.fill(campaignId);
+   }
+
+    async campaignRow(campaignId: string) {
+       return this.page.locator(`table tr.tr >> td:first-child:text-is("${campaignId}")`).first();
+}
 }
