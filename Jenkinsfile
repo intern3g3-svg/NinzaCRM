@@ -34,6 +34,12 @@ pipeline {
 
     post {
         always {
+            //publish allure reports
+        allure([
+            includeProperties: false,
+            jdk: '',
+            results: [[path: 'allure-results']]
+        ])
             echo 'Pipeline finished!'
         }
         success {
