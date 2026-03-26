@@ -18,10 +18,17 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
+    environment {
+        BASE_URL = credentials('BASE_URL')
+        NINZA_USERNAME = credentials('NINZA_USERNAME')
+        NINZA_PASSWORD = credentials('NINZA_PASSWORD')
+    }
     stages {
 
         stage('Checkout') {
             steps {
+                // Replace with your GitHub repo URL
+                git branch: 'feature-Sudha', url: 'https://github.com/arizona12345/NinzaCRM1.git'
                 echo 'Cloning repository from GitHub...'
                 git(
                     url: 'https://github.com/username/PlaywrightNinzaCRM.git', 
