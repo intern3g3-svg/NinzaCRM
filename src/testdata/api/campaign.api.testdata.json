@@ -1,0 +1,44 @@
+{
+  "createCampaign": {
+    "campaignName": "Spring Product Launch",
+    "campaignStatus": "Planned",
+    "description": "Campaign for Q2 product launch awareness",
+    "expectedCloseDate": "30-06-2026",
+    "targetAudience": "SMB customers",
+    "targetSize": 2500
+  },
+  "updateCampaign": {
+    "campaignName": "Spring Product Launch - Wave 2",
+    "campaignStatus": "Active",
+    "description": "Updated with revised timeline and audience",
+    "expectedCloseDate": "15-07-2026",
+    "targetAudience": "SMB and mid-market customers",
+    "targetSize": 3000
+  },
+  "invalidCampaigns": {
+    "missingCampaignName": {
+      "campaignName": "",
+      "campaignStatus": "Planned",
+      "description": "Missing mandatory campaign name",
+      "expectedCloseDate": "30-06-2026",
+      "targetAudience": "SMB customers",
+      "targetSize": 100
+    },
+    "negativeTargetSize": {
+      "campaignName": "Invalid Negative Size",
+      "campaignStatus": "Planned",
+      "description": "Target size cannot be negative",
+      "expectedCloseDate": "30-06-2026",
+      "targetAudience": "SMB customers",
+      "targetSize": -5
+    },
+    "invalidExpectedCloseDate": {
+      "campaignName": "Invalid Date Format",
+      "campaignStatus": "Planned",
+      "description": "Date must be in dd-mm-yyyy format",
+      "expectedCloseDate": "2026/06/30",
+      "targetAudience": "SMB customers",
+      "targetSize": 120
+    }
+  }
+}
