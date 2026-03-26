@@ -5,6 +5,7 @@ on:
     branches: [ feature-Sudha ]
   pull_request:
     branches: [ feature-Sudha ]
+    workflow_dispatch: # manual execution
 
 jobs:
   test:
