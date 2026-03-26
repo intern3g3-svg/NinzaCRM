@@ -8,7 +8,8 @@ pipeline {
 
     environment {
         // Optional: GitHub credentials ID if your repo is private
-        GIT_CREDENTIALS = 'github-token-id' 
+       GIT_CREDENTIALS = 'github-token-id' 
+       
     }
 
     options {
@@ -17,15 +18,21 @@ pipeline {
         // Keep only last 10 builds
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
+    environment {
+        BASE_URL = credentials('BASE_URL')
+        NINZA_USERNAME = credentials('NINZA_USERNAME')
+        NINZA_PASSWORD = credentials('NINZA_PASSWORD')
+    }
 
     stages {
 
         stage('Checkout') {
             steps {
+                 git branch: 'main', url: 'https://github.com/intern3g3-svg/NinzaCRM.git'
                 echo 'Cloning repository from GitHub...'
                 git(
-                    url: 'https://github.com/username/PlaywrightNinzaCRM.git', 
-                    credentialsId: "${GIT_CREDENTIALS}", 
+                    url: 'https://github.com/intern3g3-svg/NinzaCRM.git', 
+                    //credentialsId: "${GIT_CREDENTIALS}", 
                     branch: 'main'
                 )
             }
@@ -36,7 +43,7 @@ pipeline {
                 echo 'Installing npm packages...'
                 sh 'npm install'
                 echo 'Installing Playwright browsers...'
-                sh 'npx playwright install'
+                sh 'npx playwright install --with-deps'
             }
         }
 
