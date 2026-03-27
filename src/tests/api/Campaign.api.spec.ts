@@ -71,7 +71,7 @@ test('Create Campaign', async({request}) =>{
     const validate = ajv.compile(campaignSchema); // 1. AJV converts your schema into a validation function.2.campaignSchema is my predefined contract from api-schemas
     const valid = validate(body); //valid will be true if matches else false 
     expect(valid, JSON.stringify(validate.errors)).toBe(true); //assert to check true
-    console.log("API test CampaignSreelatha-Passed");
+    console.log("API test CampaignSudha-Passed");
 });
 
 // test('Get Campaign',async({api}) => {
