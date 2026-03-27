@@ -41,16 +41,16 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing npm packages...'
-                sh 'npm install'
+                bat 'npm install'
                 echo 'Installing Playwright browsers...'
-                sh 'npx playwright install --with-deps'
+                bat 'npx playwright install --with-deps'
             }
         }
 
         stage('Run Playwright Tests') {
             steps {
                 echo 'Running Playwright tests...'
-                sh 'npx playwright test --reporter=html'
+                bat 'npx playwright test --reporter=html'
             }
         }
 
