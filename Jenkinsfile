@@ -9,6 +9,9 @@ pipeline {
     environment {
         // Optional: GitHub credentials ID if your repo is private
        GIT_CREDENTIALS = 'github-token-id' 
+       BASE_URL = credentials('BASE_URL')
+        NINZA_USERNAME = credentials('NINZA_USERNAME')
+        NINZA_PASSWORD = credentials('NINZA_PASSWORD')
        
     }
 
@@ -18,11 +21,7 @@ pipeline {
         // Keep only last 10 builds
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
-    environment {
-        BASE_URL = credentials('BASE_URL')
-        NINZA_USERNAME = credentials('NINZA_USERNAME')
-        NINZA_PASSWORD = credentials('NINZA_PASSWORD')
-    }
+    
 
     
     stages {
