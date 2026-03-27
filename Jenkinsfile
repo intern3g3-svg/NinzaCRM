@@ -8,8 +8,8 @@ pipeline {
 
     environment {
         // Optional: GitHub credentials ID if your repo is private
-       GIT_CREDENTIALS = 'github-token-id' 
-       BASE_URL = credentials('BASE_URL')
+      // GIT_CREDENTIALS = 'github-token-id' 
+        BASE_URL = credentials('BASE_URL')
         NINZA_USERNAME = credentials('NINZA_USERNAME')
         NINZA_PASSWORD = credentials('NINZA_PASSWORD')
        
@@ -50,31 +50,27 @@ pipeline {
         stage('Run Playwright Tests') {
             steps {
                 echo 'Running Playwright tests...'
-                bat 'npx playwright test --reporter=html'
+                bat 'npx playwright test'
             }
         }
 
     }
-
     post {
         always {
-            echo 'Publishing HTML reports...'
-            publishHTML([
-                allowMissing: false, 
-                alwaysLinkToLastBuild: true, 
-                keepAll: true, 
-                reportDir: 'playwright-report', 
-                reportFiles: 'index.html', 
-                reportName: 'Playwright Test Report'
-            ])
+        //publish allure reports
+        allure([
+        includeProperties: false,
+        jdk: '',
+        results: [[path: 'allure-results']]
+        ])
+        echo 'Pipeline finished!'
         }
-
         success {
-            echo 'Build succeeded!'
+        echo 'All tests passed '
         }
-
         failure {
-            echo 'Build failed!'
+        echo 'Some tests failed '
         }
     }
+   
 }
