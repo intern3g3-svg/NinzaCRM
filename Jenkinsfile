@@ -1,7 +1,21 @@
 pipeline {
-    agent any
-        tools {
-        nodejs "node18"
+    agent any  // run on any available Jenkins node
+
+    // Use NodeJS configured in Jenkins Global Tool Configuration
+    tools { 
+        nodejs "NodeJS"  // Make sure this matches the name you gave NodeJS in Jenkins
+    }
+
+    environment {
+        // Optional: GitHub credentials ID if your repo is private
+        GIT_CREDENTIALS = 'github-token-id' 
+    }
+
+    options {
+        // Abort build if it hangs more than 30 minutes
+        timeout(time: 30, unit: 'MINUTES')
+        // Keep only last 10 builds
+        buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
     environment {
@@ -10,43 +24,57 @@ pipeline {
         NINZA_PASSWORD = credentials('NINZA_PASSWORD')
     }
     stages {
+
         stage('Checkout') {
             steps {
                 // Replace with your GitHub repo URL
                 git branch: 'feature-Sudha', url: 'https://github.com/arizona12345/NinzaCRM1.git'
+                echo 'Cloning repository from GitHub...'
+                git(
+                    url: 'https://github.com/username/PlaywrightNinzaCRM.git', 
+                    credentialsId: "${GIT_CREDENTIALS}", 
+                    branch: 'main'
+                )
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                // On Windows, use 'bat' to run commands
-                bat 'npm install'
-                bat 'npx playwright install --with-deps'
+                echo 'Installing npm packages...'
+                sh 'npm install'
+                echo 'Installing Playwright browsers...'
+                sh 'npx playwright install'
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Playwright Tests') {
             steps {
-                bat 'npx playwright test'
+                echo 'Running Playwright tests...'
+                sh 'npx playwright test --reporter=html'
             }
         }
+
     }
 
     post {
         always {
-            //publish allure reports
-        allure([
-            includeProperties: false,
-            jdk: '',
-            results: [[path: 'allure-results']]
-        ])
-            echo 'Pipeline finished!'
+            echo 'Publishing HTML reports...'
+            publishHTML([
+                allowMissing: false, 
+                alwaysLinkToLastBuild: true, 
+                keepAll: true, 
+                reportDir: 'playwright-report', 
+                reportFiles: 'index.html', 
+                reportName: 'Playwright Test Report'
+            ])
         }
+
         success {
-            echo 'All tests passed '
+            echo 'Build succeeded!'
         }
+
         failure {
-            echo 'Some tests failed '
+            echo 'Build failed!'
         }
     }
 }
