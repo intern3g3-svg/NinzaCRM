@@ -24,11 +24,7 @@ pipeline {
         NINZA_PASSWORD = credentials('NINZA_PASSWORD')
     }
 
-    environment {
-        BASE_URL = credentials('BASE_URL')
-        NINZA_USERNAME = credentials('NINZA_USERNAME')
-        NINZA_PASSWORD = credentials('NINZA_PASSWORD')
-    }
+    
     stages {
 
         stage('Checkout') {
