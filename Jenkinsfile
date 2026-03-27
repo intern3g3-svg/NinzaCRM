@@ -1,7 +1,7 @@
 pipeline {
     agent any
         tools {
-        nodejs "nodeJS"
+        nodejs "NodeJS"
     }
 
     environment {
@@ -13,12 +13,12 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                 git branch: 'develop', url: 'https://github.com/intern3g3-svg/NinzaCRM.git'
+                 git branch: 'main', url: 'https://github.com/intern3g3-svg/NinzaCRM.git'
                 echo 'Cloning repository from GitHub...'
                 git(
                     url: 'https://github.com/intern3g3-svg/NinzaCRM.git', 
                     //credentialsId: "${GIT_CREDENTIALS}", 
-                    branch: 'develop'
+                    branch: 'main'
                 )
               
               
