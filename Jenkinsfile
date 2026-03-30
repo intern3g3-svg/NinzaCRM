@@ -1,38 +1,64 @@
 pipeline {
     agent any
+        tools {
+        nodejs "NodeJS"
+    }
 
+    environment {
+        BASE_URL = credentials('BASE_URL')
+        NINZA_USERNAME = credentials('NINZA_USERNAME')
+        NINZA_PASSWORD = credentials('NINZA_PASSWORD')
+    }
     stages {
+
         stage('Checkout') {
             steps {
-                // Replace with your GitHub repo URL
-                git branch: 'main', url: 'https://github.com/intern3g3-svg/NinzaCRM.git'
+                 git branch: 'main', url: 'https://github.com/intern3g3-svg/NinzaCRM.git'
+                echo 'Cloning repository from GitHub...'
+                git(
+                    url: 'https://github.com/intern3g3-svg/NinzaCRM.git', 
+                    //credentialsId: "${GIT_CREDENTIALS}", 
+                    branch: 'main'
+                )
+              
+              
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                // On Windows, use 'bat' to run commands
-                bat 'npm install'
-                bat 'npx playwright install'
+                echo 'Installing npm packages...'
+                sh 'npm install'
+                echo 'Installing Playwright browsers...'
+                sh 'npx playwright install --with-deps'
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Playwright Tests') {
             steps {
-                bat 'npx playwright test'
+                echo 'Running Playwright tests...'
+                sh 'npx playwright test'
             }
         }
-    }
 
+    }
     post {
         always {
-            echo 'Pipeline finished!'
+        //publish allure reports
+        allure([
+        includeProperties: false,
+        jdk: '',
+        results: [[path: 'allure-results']]
+        ])
+        echo 'Pipeline finished!'
+                  
         }
         success {
-            echo 'All tests passed '
+        echo 'All tests passed '
         }
         failure {
-            echo 'Some tests failed '
+        echo 'Some tests failed '
         }
     }
+   
 }
