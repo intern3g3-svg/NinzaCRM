@@ -55,9 +55,36 @@ pipeline {
         }
         success {
         echo 'All tests passed '
+        // Send email on success
+             // Send email on success with link to Allure report
+            emailext(
+                subject: "Jenkins Build Successful: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    <p>Hi Team,</p>
+                    <p>The Jenkins build <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> was successful.</p>
+                    <p>View the Allure report here: <a href="${env.BUILD_URL}allure/">Allure Report</a></p>
+                    <p>Regards,<br/>Jenkins CI</p>
+                """,
+                to: "poornitha.rameshkumar@gmail.com",
+                mimeType: 'text/html'
+            )
         }
         failure {
         echo 'Some tests failed '
+        // Send email on failure
+           echo 'Some tests failed'
+            // Send email on failure with link to Allure report
+            emailext(
+                subject: "Jenkins Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    <p>Hi Team,</p>
+                    <p>The Jenkins build <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> has failed.</p>
+                    <p>Check the Allure report here: <a href="${env.BUILD_URL}allure/">Allure Report</a></p>
+                    <p>Regards,<br/>Jenkins CI</p>
+                """,
+                to: "poornitha.rameshkumar@gmail.com",
+                mimeType: 'text/html'
+            )
         }
     }
    
